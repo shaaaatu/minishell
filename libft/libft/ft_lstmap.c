@@ -1,42 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_lstmap.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: luebina <luebina@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/30 17:09:48 by luebina           #+#    #+#             */
-/*   Updated: 2024/09/30 22:24:31 by luebina          ###   ########.fr       */
+/*   Created: 2023/09/27 04:29:59 by luebina           #+#    #+#             */
+/*   Updated: 2023/09/29 22:45:17 by luebina          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
-#include <unistd.h>
-#include <string.h>
-#include <stdlib.h>
-#include <readline/readline.h>
-#include <readline/history.h>
+#include "libft.h"
 
-int	main(int argc, char **argv)
+t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *))
 {
-	char	*line;
+	t_list	*new;
+	t_list	*tmp;
 
-	(void)argc;
-	(void)argv;
-	rl_outstream = stderr;
-	while (1)
+	new = NULL;
+	if (!lst || !f || !del)
+		return (NULL);
+	while (lst)
 	{
-		line = readline("minishell$ ");
-		if (line == NULL)
+		tmp = ft_lstnew(f(lst->content));
+		if (!tmp)
 		{
-			free(line);
-			break ;
+			ft_lstclear(&new, del);
+			return (NULL);
 		}
-		if (*line)
-			add_history(line);
-		printf("%s\n", line);
-		free(line);
+		ft_lstadd_back(&new, tmp);
+		lst = lst->next;
 	}
-	exit(0);
-	return (0);
+	return (new);
 }

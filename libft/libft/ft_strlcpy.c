@@ -1,42 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_strlcpy.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: luebina <luebina@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/30 17:09:48 by luebina           #+#    #+#             */
-/*   Updated: 2024/09/30 22:24:31 by luebina          ###   ########.fr       */
+/*   Created: 2023/09/20 05:05:22 by luebina           #+#    #+#             */
+/*   Updated: 2023/09/22 06:53:44 by luebina          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
-#include <unistd.h>
-#include <string.h>
-#include <stdlib.h>
-#include <readline/readline.h>
-#include <readline/history.h>
+#include "libft.h"
 
-int	main(int argc, char **argv)
+size_t	ft_strlcpy(char *dest, const char *src, size_t size)
 {
-	char	*line;
+	size_t	i;
 
-	(void)argc;
-	(void)argv;
-	rl_outstream = stderr;
-	while (1)
+	i = 0;
+	if (size > 0)
 	{
-		line = readline("minishell$ ");
-		if (line == NULL)
+		while (src[i] && i < size - 1)
 		{
-			free(line);
-			break ;
+			dest[i] = src[i];
+			i++;
 		}
-		if (*line)
-			add_history(line);
-		printf("%s\n", line);
-		free(line);
+		dest[i] = 0;
 	}
-	exit(0);
-	return (0);
+	while (src[i])
+		i++;
+	return (i);
 }

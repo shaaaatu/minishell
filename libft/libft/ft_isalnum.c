@@ -1,42 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_isalnum.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: luebina <luebina@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/30 17:09:48 by luebina           #+#    #+#             */
-/*   Updated: 2024/09/30 22:24:31 by luebina          ###   ########.fr       */
+/*   Created: 2023/09/20 01:29:48 by luebina           #+#    #+#             */
+/*   Updated: 2023/09/20 07:40:03 by luebina          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
-#include <unistd.h>
-#include <string.h>
-#include <stdlib.h>
-#include <readline/readline.h>
-#include <readline/history.h>
+#include "libft.h"
 
-int	main(int argc, char **argv)
+int	ft_isalnum(int c)
 {
-	char	*line;
-
-	(void)argc;
-	(void)argv;
-	rl_outstream = stderr;
-	while (1)
-	{
-		line = readline("minishell$ ");
-		if (line == NULL)
-		{
-			free(line);
-			break ;
-		}
-		if (*line)
-			add_history(line);
-		printf("%s\n", line);
-		free(line);
-	}
-	exit(0);
+	if ((c >= 65 && c <= 90) || (c >= 97 && c <= 122) \
+	|| (c >= 48 && c <= 57))
+		return (1);
 	return (0);
 }
