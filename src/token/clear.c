@@ -1,27 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strjoin.c                                       :+:      :+:    :+:   */
+/*   clear.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: luebina <luebina@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/22 01:43:24 by luebina           #+#    #+#             */
-/*   Updated: 2024/10/01 20:32:37 by luebina          ###   ########.fr       */
+/*   Created: 2024/10/01 20:55:31 by luebina           #+#    #+#             */
+/*   Updated: 2024/10/01 23:04:58 by luebina          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "minishell.h"
 
-char	*ft_strjoin(char const *s1, char const *s2)
+void	clear_tokens(t_token **tokens)
 {
-	char	*ptr;
+	t_token	*tmp;
+	int		i;
 
-	if (!s1 || !s2)
-		return (NULL);
-	ptr = (char *)malloc(sizeof(char) * (ft_strlen(s1) + ft_strlen(s2) + 1));
-	if (ptr == NULL)
-		return (NULL);
-	ft_strlcpy(ptr, s1, ft_strlen(s1) + 1);
-	ft_strlcat(ptr, s2, ft_strlen(s1) + ft_strlen(s2) + 1);
-	return (ptr);
+	i = 0;
+	printf("\n----freeeee----\n");
+	while (*tokens)
+	{
+		tmp = (*tokens)->next;
+		printf("%s\n", (*tokens)->value);
+		free((*tokens)->value);
+		free(*tokens);
+		*tokens = tmp;
+		i++;
+		printf("count: %d\n", i);
+	}
 }

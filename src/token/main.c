@@ -6,23 +6,20 @@
 /*   By: luebina <luebina@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 17:09:48 by luebina           #+#    #+#             */
-/*   Updated: 2024/09/30 22:24:31 by luebina          ###   ########.fr       */
+/*   Updated: 2024/10/01 20:55:10 by luebina          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
-#include <unistd.h>
-#include <string.h>
-#include <stdlib.h>
-#include <readline/readline.h>
-#include <readline/history.h>
+#include "minishell.h"
 
 int	main(int argc, char **argv)
 {
 	char	*line;
+	t_token	*tokens;
 
 	(void)argc;
 	(void)argv;
+	tokens = NULL;
 	rl_outstream = stderr;
 	while (1)
 	{
@@ -34,9 +31,10 @@ int	main(int argc, char **argv)
 		}
 		if (*line)
 			add_history(line);
-		printf("%s\n", line);
+		tokenize(line, &tokens);
 		free(line);
 	}
+	clear_tokens(&tokens);
 	exit(0);
 	return (0);
 }

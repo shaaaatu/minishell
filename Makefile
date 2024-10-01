@@ -1,15 +1,16 @@
 NAME = minishell
 CC = cc
 CFLAGS = -Wall -Werror -Wextra
-SRC = main.c
+INCLUDE = includes
+SRC = src/main.c src/token.c src/token_utils.c src/utils.c src/clear.c
 OBJ = $(SRC:.c=.o)
 LIBFT = libft/libft.a
 
 %.o: %.c
-	$(CC) $(CFLAGS) -c $< -o $@
+	$(CC) $(CFLAGS) -I$(INCLUDE) -c $< -o $@
 
 $(NAME): $(OBJ) $(LIBFT)
-	$(CC) $(CFLAGS) $(OBJ) $(LIBFT) -o $(NAME) -lreadline
+	$(CC) $(CFLAGS) $(OBJ) $(LIBFT) -o $(NAME) -lreadline -g -fsanitize=address
 
 $(LIBFT):
 	make -C libft
