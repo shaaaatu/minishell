@@ -6,7 +6,7 @@
 /*   By: luebina <luebina@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 01:26:14 by luebina           #+#    #+#             */
-/*   Updated: 2024/10/01 22:47:00 by luebina          ###   ########.fr       */
+/*   Updated: 2024/10/11 18:17:40 by luebina          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,11 @@ char	*ft_strjoin_char(char *s1, char c)
 	char	*new_str;
 
 	len = ft_strlen(s1);
-	new_str = malloc(len + 2);
+	new_str = (char *)malloc(sizeof(char) * (len + 2));
 	if (new_str == NULL)
 		return (NULL);
 	if (s1)
-	{
 		ft_strlcpy(new_str, s1, len + 1);
-	}
 	new_str[len] = c;
 	new_str[len + 1] = '\0';
 	free(s1);
@@ -66,4 +64,16 @@ char	*ft_strndup(const char *s, size_t size)
 	}
 	ptr[i] = '\0';
 	return (ptr);
+}
+
+size_t	safe_strlcat(char *dest, const char *src, size_t n)
+{
+	if (!dest)
+	{
+		dest = (char *)malloc(sizeof(char) * (ft_strlen(src) + 1));
+		if (!dest)
+			return (0);
+		dest[0] = '\0';
+	}
+	return (ft_strlcat(dest, src, n));
 }

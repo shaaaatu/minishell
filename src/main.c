@@ -6,23 +6,21 @@
 /*   By: luebina <luebina@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 17:09:48 by luebina           #+#    #+#             */
-/*   Updated: 2024/10/01 20:55:10 by luebina          ###   ########.fr       */
+/*   Updated: 2024/10/09 16:49:55 by luebina          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	main(int argc, char **argv)
+int	main(void)
 {
 	char	*line;
 	t_token	*tokens;
 
-	(void)argc;
-	(void)argv;
-	tokens = NULL;
 	rl_outstream = stderr;
 	while (1)
 	{
+		tokens = NULL;
 		line = readline("minishell$ ");
 		if (line == NULL)
 		{
@@ -32,9 +30,10 @@ int	main(int argc, char **argv)
 		if (*line)
 			add_history(line);
 		tokenize(line, &tokens);
+		command(tokens);
 		free(line);
+		clear_tokens(&tokens);
 	}
-	clear_tokens(&tokens);
 	exit(0);
 	return (0);
 }

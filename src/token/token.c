@@ -6,7 +6,7 @@
 /*   By: luebina <luebina@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 00:26:53 by luebina           #+#    #+#             */
-/*   Updated: 2024/10/01 22:58:31 by luebina          ###   ########.fr       */
+/*   Updated: 2024/10/11 18:18:50 by luebina          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,12 +50,13 @@ int	env_token(char **value, char *line)
 	return (i + 1);
 }
 
-int	quote_token(char *line, t_token **tokens)
+char	*quote_analysis(char *line)
 {
 	char	quote;
 	char	*value;
 	int		i;
 
+	printf("quote\n");
 	quote = *line;
 	i = 1;
 	value = NULL;
@@ -69,33 +70,43 @@ int	quote_token(char *line, t_token **tokens)
 			i++;
 		}
 	}
-	if (line[i - 1] != quote)
+	if (line[i] != quote)
 	{
-		printf("Error\n");
 		free(value);
-		return (i);
+		return (NULL);
 	}
-	printf("%s\n", value);
-	add_token(tokens, value, WORD);
-	free(value);
-	return (i);
+	/* add_token(tokens, value, WORD); */
+	printf("value: %s\n", value);
+	return (value);
 }
 
 int	word_token(char *line, t_token **tokens)
 {
 	int		i;
-	int		l;
 	char	*word;
+	char	quote;
 
 	i = 0;
-	l = -1;
+	word = NULL;
 	while (line[i] && line[i] != ' ' && line[i] != '\t' && line[i] != '\v'
 		&& line[i] != '|' && line[i] != '<' && line[i] != '>')
-		i++;
-	word = (char *)malloc(sizeof(char) * (i + 1));
-	while (++l < i)
-		word[l] = line[l];
-	word[l] = '\0';
+	{
+		if (line[i] == '\'' || line[i] == '"')
+		{
+			quote = line[i];
+			safe_strlcat(word, quote_analysis(line + i),
+				ft_strlen(quote_analysis(line + i)));
+			printf("word: %s\n", word);
+			while (line[i + 1] && line[i + 1] != quote)
+				i++;
+			i += 2;
+		}
+		else
+		{
+			word = ft_strjoin_char(word, line[i]);
+			i++;
+		}
+	}
 	add_token(tokens, word, WORD);
 	free(word);
 	return (i - 1);
@@ -120,10 +131,10 @@ void	tokenize(char *line, t_token **tokens)
 			add_token(tokens, "<", REDIR_IN);
 		else if (line[i] == '>')
 			add_token(tokens, ">", REDIR_OUT);
-		else if (line[i] == '\'' || line[i] == '"')
-			i += quote_token(line + i, tokens);
-		else if (line[i] == '$')
-			i += ft_strlen(env_var_value(line + i));
+		/* else if (line[i] == '\'' || line[i] == '"') */
+		/* 	i += quote_token(line + i, tokens); */
+		/* else if (line[i] == '$') */
+		/* 	i += word_token(env_var_value(line + i)); */
 		else
 			i += word_token(line + i, tokens);
 	}
