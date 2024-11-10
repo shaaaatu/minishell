@@ -1,0 +1,21 @@
+-rw-rw-r-- 1 lui lui     0 11月  9 20:33 output.txt
+-rw-rw-r-- 1 lui lui     5 11月  9 20:32 input.txt
+-rw-rw-r-- 1 lui lui   119 11月  3 12:38 env.c
+-rw-rw-r-- 1 lui lui   124 11月  3 12:38 access_test.c
+-rw-rw-r-- 1 lui lui   130 11月  3 12:38 strjoin_test.c
+-rw-rw-r-- 1 lui lui   140 11月  3 12:38 test.h
+-rw-rw-r-- 1 lui lui   144 11月  6 22:21 test.c
+-rw-rw-r-- 1 lui lui   178 11月  3 12:38 str_minus.c
+-rw-rw-r-- 1 lui lui   239 11月  3 12:38 while_test.c
+-rw-rw-r-- 1 lui lui   261 11月  3 12:38 strcat_test.c
+-rw-rw-r-- 1 lui lui   373 11月  3 12:38 execve_test.c
+-rw-rw-r-- 1 lui lui   416 11月  6 22:32 dup_test.c
+-rw-rw-r-- 1 lui lui   418 11月  3 12:38 Makefile
+-rw-rw-r-- 1 lui lui   665 11月  7 10:27 pipe_test.c
+-rw-rw-r-- 1 lui lui  1200 11月  3 12:38 res.txt
+-rw-rw-r-- 1 lui lui  1469 11月  3 12:38 main.c
+-rw-rw-r-- 1 lui lui  2706 11月  9 20:30 ast.c
+-rwxrwxr-x 1 lui lui 16272 11月  9 20:30 a.out
+drwxrwxr-x 2 lui lui  4096 11月  9 20:32 .
+drwxrwxr-x 7 lui lui  4096 11月  7 11:22 ..
+合計 88

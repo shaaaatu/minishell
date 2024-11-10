@@ -1,44 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_strjoin_shell.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: luebina <luebina@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/30 17:09:48 by luebina           #+#    #+#             */
-/*   Updated: 2024/11/10 18:13:01 by luebina          ###   ########.fr       */
+/*   Created: 2024/11/10 16:39:18 by luebina           #+#    #+#             */
+/*   Updated: 2024/11/10 16:39:30 by luebina          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	main(void)
+char	*ft_strjoin_shell(char *s1, char *s2)
 {
-	char	*line;
-	char	**tokens;
-	t_ast	*ast;
+	char	*ptr;
 
-	rl_outstream = stderr;
-	tokens = NULL;
-	while (1)
+	if (!s2)
+		return (NULL);
+	if (s1)
 	{
-		tokens = NULL;
-		line = readline("minishell$ ");
-		if (line == NULL)
-		{
-			free(line);
-			break ;
-		}
-		if (*line)
-			add_history(line);
-		tokens = tokenize(line);
-		ast = parsing(tokens);
-		(void)ast;
-		break ;
-		/* command(tokens); */
-		/* free(line); */
-		/* clear_tokens(&tokens); */
+		ptr = ft_strjoin(s1, s2);
+		free(s1);
+		return (ptr);
 	}
-	exit(0);
-	return (0);
+	ptr = (char *)malloc(sizeof(char) * ft_strlen(s2) + 1);
+	if (ptr == NULL)
+		return (NULL);
+	ft_strlcpy(ptr, s2, ft_strlen(s2) + 1);
+	return (ptr);
 }

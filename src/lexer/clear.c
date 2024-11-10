@@ -1,44 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   clear.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: luebina <luebina@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/30 17:09:48 by luebina           #+#    #+#             */
-/*   Updated: 2024/11/10 18:13:01 by luebina          ###   ########.fr       */
+/*   Created: 2024/10/01 20:55:31 by luebina           #+#    #+#             */
+/*   Updated: 2024/11/09 22:54:11 by luebina          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	main(void)
+void	clear_tokens(char ***tokens)
 {
-	char	*line;
-	char	**tokens;
-	t_ast	*ast;
+	(void)tokens;
+	return;
+	/* t_token	*tmp; */
+	/* int		i; */
 
-	rl_outstream = stderr;
-	tokens = NULL;
-	while (1)
-	{
-		tokens = NULL;
-		line = readline("minishell$ ");
-		if (line == NULL)
-		{
-			free(line);
-			break ;
-		}
-		if (*line)
-			add_history(line);
-		tokens = tokenize(line);
-		ast = parsing(tokens);
-		(void)ast;
-		break ;
-		/* command(tokens); */
-		/* free(line); */
-		/* clear_tokens(&tokens); */
-	}
-	exit(0);
-	return (0);
+	/* i = 0; */
+	/* printf("\n----freeeee----\n"); */
+	/* while (*tokens) */
+	/* { */
+	/* 	tmp = (*tokens)->next; */
+	/* 	printf("%s\n", (*tokens)->value); */
+	/* 	free((*tokens)->value); */
+	/* 	free(*tokens); */
+	/* 	*tokens = tmp; */
+	/* 	i++; */
+	/* 	printf("count: %d\n", i); */
+	/* } */
 }

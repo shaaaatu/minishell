@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   token.c                                            :+:      :+:    :+:   */
+/*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: luebina <luebina@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 00:26:53 by luebina           #+#    #+#             */
-/*   Updated: 2024/10/11 18:18:50 by luebina          ###   ########.fr       */
+/*   Updated: 2024/11/10 17:54:00 by luebina          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,64 +56,69 @@ char	*quote_analysis(char *line)
 	char	*value;
 	int		i;
 
-	printf("quote\n");
 	quote = *line;
 	i = 1;
 	value = NULL;
 	while (line[i] && line[i] != quote)
 	{
-		if (quote == '"' && line[i] == '$')
-			i += env_token(&value, line + i + 1);
-		else
-		{
-			value = ft_strjoin_char(value, line[i]);
-			i++;
-		}
+		/* if (quote == '"' && line[i] == '$') */
+		/* 	i += env_token(&value, line + i + 1); */
+		/* else */
+		/* { */
+		value = ft_strjoin_char(value, line[i]);
+		i++;
+		/* } */
 	}
 	if (line[i] != quote)
 	{
 		free(value);
 		return (NULL);
 	}
-	/* add_token(tokens, value, WORD); */
-	printf("value: %s\n", value);
 	return (value);
 }
 
-int	word_token(char *line, t_token **tokens)
+int	word_token(char *line, char **tokens)
 {
 	int		i;
 	char	*word;
-	char	quote;
+	bool	quote;
 
 	i = 0;
 	word = NULL;
-	while (line[i] && line[i] != ' ' && line[i] != '\t' && line[i] != '\v'
-		&& line[i] != '|' && line[i] != '<' && line[i] != '>')
-	{
-		if (line[i] == '\'' || line[i] == '"')
+	quote = false;
+	while (line[i] && !(!quote && (line[i] == ' ' || line[i] == '\t' || line[i] == '\v'
+					|| line[i] == '|' || line[i] == '<' || line[i] == '>'))
+		  )	{
+		if (!quote && (line[i] == '\'' || line[i] == '"'))
 		{
-			quote = line[i];
-			safe_strlcat(word, quote_analysis(line + i),
-				ft_strlen(quote_analysis(line + i)));
-			printf("word: %s\n", word);
-			while (line[i + 1] && line[i + 1] != quote)
-				i++;
-			i += 2;
+			quote = true;
+			/* safe_strlcat(&word, quote_analysis(line + i), */
+			/* 	ft_strlen(quote_analysis(line + i))); */
+			/* while (line[i]) */
+			/* { */
+			/* 	if (line[i - 1] && line[i - 1] == quote) */
+			/* 		break; */
+			/* 	word = ft_strjoin_char(word, line[i]); */
+			/* 	i++; */
+			/* } */
+			/* i++; */
 		}
-		else
-		{
-			word = ft_strjoin_char(word, line[i]);
-			i++;
-		}
+		else if (quote && (line[i] == '\'' || line[i] == '"'))
+			quote = false;
+		/* else */
+		/* { */
+		word = ft_strjoin_char(word, line[i]);
+		i++;
+		/* } */
 	}
-	add_token(tokens, word, WORD);
+	add_token(&tokens, word);
 	free(word);
 	return (i - 1);
 }
 
-void	tokenize(char *line, t_token **tokens)
+char	**tokenize(char *line)
 {
+	char	**tokens;
 	int		i;
 
 	i = -1;
@@ -122,15 +127,15 @@ void	tokenize(char *line, t_token **tokens)
 		if (line[i] == ' ' || line[i] == '\t' || line[i] == '\v')
 			;
 		else if (line[i] == '|')
-			add_token(tokens, "|", PIPE);
+			add_token(&tokens, "|");
 		else if (line[i] == '<' && line[i + 1] == '<' && line[i++])
-			add_token(tokens, "<<", HEREDOC);
+			add_token(&tokens, "<<");
 		else if (line[i] == '>' && line[i + 1] == '>' && line[i++])
-			add_token(tokens, ">>", REDIR_IN);
+			add_token(&tokens, ">>");
 		else if (line[i] == '<')
-			add_token(tokens, "<", REDIR_IN);
+			add_token(&tokens, "<");
 		else if (line[i] == '>')
-			add_token(tokens, ">", REDIR_OUT);
+			add_token(&tokens, ">");
 		/* else if (line[i] == '\'' || line[i] == '"') */
 		/* 	i += quote_token(line + i, tokens); */
 		/* else if (line[i] == '$') */
@@ -138,4 +143,8 @@ void	tokenize(char *line, t_token **tokens)
 		else
 			i += word_token(line + i, tokens);
 	}
+	i = -1;
+	while (tokens[++i] != NULL)
+		printf("%s\n", tokens[i]);
+	return (tokens);
 }

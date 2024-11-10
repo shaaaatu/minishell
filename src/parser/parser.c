@@ -1,44 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: luebina <luebina@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/30 17:09:48 by luebina           #+#    #+#             */
-/*   Updated: 2024/11/10 18:13:01 by luebina          ###   ########.fr       */
+/*   Created: 2024/11/10 17:39:53 by luebina           #+#    #+#             */
+/*   Updated: 2024/11/10 18:14:19 by luebina          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	main(void)
+void	build_ast(char **tokens, int start, int end)
 {
-	char	*line;
-	char	**tokens;
+	while (end == start)
+	{
+		end--;
+	}
+}
+
+t_ast	*parsing(char **tokens)
+{
 	t_ast	*ast;
 
-	rl_outstream = stderr;
-	tokens = NULL;
-	while (1)
-	{
-		tokens = NULL;
-		line = readline("minishell$ ");
-		if (line == NULL)
-		{
-			free(line);
-			break ;
-		}
-		if (*line)
-			add_history(line);
-		tokens = tokenize(line);
-		ast = parsing(tokens);
-		(void)ast;
-		break ;
-		/* command(tokens); */
-		/* free(line); */
-		/* clear_tokens(&tokens); */
-	}
-	exit(0);
-	return (0);
+	(void)ast;
+	build_ast(tokens, 0, 0);
+	return (ast);
 }

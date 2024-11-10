@@ -1,44 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_strjoin_char.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: luebina <luebina@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/30 17:09:48 by luebina           #+#    #+#             */
-/*   Updated: 2024/11/10 18:13:01 by luebina          ###   ########.fr       */
+/*   Created: 2024/11/10 16:39:47 by luebina           #+#    #+#             */
+/*   Updated: 2024/11/10 16:39:54 by luebina          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	main(void)
+char	*ft_strjoin_char(char *s1, char c)
 {
-	char	*line;
-	char	**tokens;
-	t_ast	*ast;
+	size_t	len;
+	char	*new_str;
 
-	rl_outstream = stderr;
-	tokens = NULL;
-	while (1)
-	{
-		tokens = NULL;
-		line = readline("minishell$ ");
-		if (line == NULL)
-		{
-			free(line);
-			break ;
-		}
-		if (*line)
-			add_history(line);
-		tokens = tokenize(line);
-		ast = parsing(tokens);
-		(void)ast;
-		break ;
-		/* command(tokens); */
-		/* free(line); */
-		/* clear_tokens(&tokens); */
-	}
-	exit(0);
-	return (0);
+	len = ft_strlen(s1);
+	new_str = (char *)malloc(sizeof(char) * (len + 2));
+	if (new_str == NULL)
+		return (NULL);
+	if (s1)
+		ft_strlcpy(new_str, s1, len + 1);
+	new_str[len] = c;
+	new_str[len + 1] = '\0';
+	free(s1);
+	return (new_str);
 }

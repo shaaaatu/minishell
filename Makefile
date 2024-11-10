@@ -2,7 +2,18 @@ NAME = minishell
 CC = cc
 CFLAGS = -Wall -Werror -Wextra
 INCLUDE = includes
-SRC = src/main.c src/token/token.c src/token/token_utils.c src/utils/utils.c src/token/clear.c src/command/command.c src/command/builtin.c
+SRC = src/main.c \
+	  src/lexer/lexer.c \
+	  src/lexer/lexer_utils.c \
+	  src/utils/ft_realloc.c \
+	  src/utils/ft_strjoin_shell.c \
+	  src/utils/ft_strjoin_char.c \
+	  src/utils/ft_strndup.c \
+	  src/utils/safe_strlcat.c \
+	  src/parser/parser.c \
+	  # src/token/clear.c \
+	  # src/command/command.c \
+	  src/command/builtin.c
 OBJ = $(SRC:.c=.o)
 LIBFT = libft/libft.a
 

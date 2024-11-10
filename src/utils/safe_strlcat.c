@@ -1,44 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   safe_strlcat.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: luebina <luebina@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/30 17:09:48 by luebina           #+#    #+#             */
-/*   Updated: 2024/11/10 18:13:01 by luebina          ###   ########.fr       */
+/*   Created: 2024/11/10 16:38:08 by luebina           #+#    #+#             */
+/*   Updated: 2024/11/10 16:38:21 by luebina          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	main(void)
+size_t	safe_strlcat(char **dest, const char *src, size_t n)
 {
-	char	*line;
-	char	**tokens;
-	t_ast	*ast;
-
-	rl_outstream = stderr;
-	tokens = NULL;
-	while (1)
+	if (!*dest)
 	{
-		tokens = NULL;
-		line = readline("minishell$ ");
-		if (line == NULL)
-		{
-			free(line);
-			break ;
-		}
-		if (*line)
-			add_history(line);
-		tokens = tokenize(line);
-		ast = parsing(tokens);
-		(void)ast;
-		break ;
-		/* command(tokens); */
-		/* free(line); */
-		/* clear_tokens(&tokens); */
+		*dest = (char *)malloc(sizeof(char) * (n + 1));
+		if (!*dest)
+			return (0);
+		*dest[0] = '\0';
 	}
-	exit(0);
-	return (0);
+	return (ft_strlcat(*dest, src, n + 1));
 }
