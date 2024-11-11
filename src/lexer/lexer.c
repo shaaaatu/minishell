@@ -6,7 +6,7 @@
 /*   By: luebina <luebina@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 00:26:53 by luebina           #+#    #+#             */
-/*   Updated: 2024/11/10 17:54:00 by luebina          ###   ########.fr       */
+/*   Updated: 2024/11/10 18:54:40 by luebina          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,13 +61,8 @@ char	*quote_analysis(char *line)
 	value = NULL;
 	while (line[i] && line[i] != quote)
 	{
-		/* if (quote == '"' && line[i] == '$') */
-		/* 	i += env_token(&value, line + i + 1); */
-		/* else */
-		/* { */
 		value = ft_strjoin_char(value, line[i]);
 		i++;
-		/* } */
 	}
 	if (line[i] != quote)
 	{
@@ -86,30 +81,18 @@ int	word_token(char *line, char **tokens)
 	i = 0;
 	word = NULL;
 	quote = false;
-	while (line[i] && !(!quote && (line[i] == ' ' || line[i] == '\t' || line[i] == '\v'
-					|| line[i] == '|' || line[i] == '<' || line[i] == '>'))
-		  )	{
+	while (line[i] && !(!quote && (line[i] == ' ' || line[i] == '\t'
+				|| line[i] == '\v' || line[i] == '|'
+				|| line[i] == '<' || line[i] == '>')))
+	{
 		if (!quote && (line[i] == '\'' || line[i] == '"'))
 		{
 			quote = true;
-			/* safe_strlcat(&word, quote_analysis(line + i), */
-			/* 	ft_strlen(quote_analysis(line + i))); */
-			/* while (line[i]) */
-			/* { */
-			/* 	if (line[i - 1] && line[i - 1] == quote) */
-			/* 		break; */
-			/* 	word = ft_strjoin_char(word, line[i]); */
-			/* 	i++; */
-			/* } */
-			/* i++; */
 		}
 		else if (quote && (line[i] == '\'' || line[i] == '"'))
 			quote = false;
-		/* else */
-		/* { */
 		word = ft_strjoin_char(word, line[i]);
 		i++;
-		/* } */
 	}
 	add_token(&tokens, word);
 	free(word);
@@ -136,15 +119,8 @@ char	**tokenize(char *line)
 			add_token(&tokens, "<");
 		else if (line[i] == '>')
 			add_token(&tokens, ">");
-		/* else if (line[i] == '\'' || line[i] == '"') */
-		/* 	i += quote_token(line + i, tokens); */
-		/* else if (line[i] == '$') */
-		/* 	i += word_token(env_var_value(line + i)); */
 		else
 			i += word_token(line + i, tokens);
 	}
-	i = -1;
-	while (tokens[++i] != NULL)
-		printf("%s\n", tokens[i]);
 	return (tokens);
 }

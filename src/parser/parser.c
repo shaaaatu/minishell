@@ -6,7 +6,7 @@
 /*   By: luebina <luebina@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/10 17:39:53 by luebina           #+#    #+#             */
-/*   Updated: 2024/11/10 18:14:19 by luebina          ###   ########.fr       */
+/*   Updated: 2024/11/10 18:24:20 by luebina          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ void	build_ast(char **tokens, int start, int end)
 {
 	while (end == start)
 	{
+		if (is_op)
 		end--;
 	}
 }
