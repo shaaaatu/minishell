@@ -6,7 +6,7 @@
 /*   By: luebina <luebina@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 01:11:11 by luebina           #+#    #+#             */
-/*   Updated: 2024/11/11 13:02:11 by luebina          ###   ########.fr       */
+/*   Updated: 2024/11/11 21:20:47 by luebina          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ void	add_token(char ***tokens, char *value)
 		(*tokens)[1] = NULL;
 		return ;
 	}
-	printf("4\n");
 	while ((*tokens)[i] != NULL)
 		i++;
 	*tokens = (char **)ft_realloc(*tokens, sizeof(char *)

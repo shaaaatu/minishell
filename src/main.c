@@ -6,7 +6,7 @@
 /*   By: luebina <luebina@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 17:09:48 by luebina           #+#    #+#             */
-/*   Updated: 2024/11/10 18:50:43 by luebina          ###   ########.fr       */
+/*   Updated: 2024/11/13 18:22:14 by luebina          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ int	main(void)
 	char	*line;
 	char	**tokens;
 	t_ast	*ast;
-	int		i;
 
 	rl_outstream = stderr;
 	tokens = NULL;
@@ -32,13 +31,11 @@ int	main(void)
 		}
 		if (*line)
 			add_history(line);
-		printf("tokens\n");
 		tokens = tokenize(line);
-		i = -1;
-		while (tokens[++i] != NULL)
-			printf("%s\n", tokens[i]);
-		/* ast = parsing(tokens); */
-		(void)ast;
+		/* i = -1; */
+		/* while (tokens[++i] != NULL) */
+		/* 	printf("%s\n", tokens[i]); */
+		ast = parsing(tokens);
 		break ;
 		/* command(tokens); */
 		/* free(line); */

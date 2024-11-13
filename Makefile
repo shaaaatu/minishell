@@ -10,7 +10,7 @@ SRC = src/main.c \
 	  src/utils/ft_strjoin_char.c \
 	  src/utils/ft_strndup.c \
 	  src/utils/safe_strlcat.c \
-	  # src/parser/parser.c \
+	  src/parser/parser.c \
 	  # src/token/clear.c \
 	  # src/command/command.c \
 	  src/command/builtin.c

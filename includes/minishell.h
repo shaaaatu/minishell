@@ -6,7 +6,7 @@
 /*   By: luebina <luebina@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 23:55:54 by luebina           #+#    #+#             */
-/*   Updated: 2024/11/10 18:12:57 by luebina          ###   ########.fr       */
+/*   Updated: 2024/11/13 20:23:43 by luebina          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,22 +25,20 @@
 # include "../libft/includes/get_next_line.h"
 # include "../libft/includes/ft_printf.h"
 
-typedef enum e_cmd_type
+typedef enum e_op_precedence
 {
-	WORD,
+	AND_OR,
 	PIPE,
-	REDIR_IN,
-	REDIR_OUT,
-	REDIR_APPEND,
-	HEREDOC
-}	t_cmd_type;
+	REDIR,
+	WORD
+}	t_op_precedence;
 
 typedef struct s_ast
 {
-	char			**cmd;
-	t_cmd_type	type;
-	struct s_token	*left;
-	struct s_token	*right;
+	char			*value;
+	/* t_cmd_type	type; */
+	struct s_ast	*left;
+	struct s_ast	*right;
 }	t_ast;
 
 char	**tokenize(char *line);

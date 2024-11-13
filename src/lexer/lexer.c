@@ -6,7 +6,7 @@
 /*   By: luebina <luebina@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 00:26:53 by luebina           #+#    #+#             */
-/*   Updated: 2024/11/10 18:54:40 by luebina          ###   ########.fr       */
+/*   Updated: 2024/11/11 21:30:37 by luebina          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ char	*quote_analysis(char *line)
 	return (value);
 }
 
-int	word_token(char *line, char **tokens)
+int	word_token(char *line, char ***tokens)
 {
 	int		i;
 	char	*word;
@@ -94,7 +94,7 @@ int	word_token(char *line, char **tokens)
 		word = ft_strjoin_char(word, line[i]);
 		i++;
 	}
-	add_token(&tokens, word);
+	add_token(tokens, word);
 	free(word);
 	return (i - 1);
 }
@@ -104,6 +104,7 @@ char	**tokenize(char *line)
 	char	**tokens;
 	int		i;
 
+	tokens = NULL;
 	i = -1;
 	while (line[++i])
 	{
@@ -120,7 +121,7 @@ char	**tokenize(char *line)
 		else if (line[i] == '>')
 			add_token(&tokens, ">");
 		else
-			i += word_token(line + i, tokens);
+			i += word_token(line + i, &tokens);
 	}
 	return (tokens);
 }
